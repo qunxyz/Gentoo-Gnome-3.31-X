@@ -1,0 +1,21 @@
+diff -uNr nautilus-3.30.2-ori/src/gnome-desktop/gnome-desktop-thumbnail-script.c nautilus-3.30.2/src/gnome-desktop/gnome-desktop-thumbnail-script.c
+--- nautilus-3.30.2-ori/src/gnome-desktop/gnome-desktop-thumbnail-script.c	2018-10-27 03:52:55.631055969 +0800
++++ nautilus-3.30.2/src/gnome-desktop/gnome-desktop-thumbnail-script.c	2018-10-27 03:53:57.193883030 +0800
+@@ -515,13 +515,15 @@
+ 
+   add_args (array,
+ 	    "bwrap",
++	    "--ro-bind", "/etc", "/etc",
++	    "--ro-bind", "/var", "/var",
++	    "--ro-bind", "/bin", "/bin",
++	    "--ro-bind", "/sbin", "/sbin",
+ 	    "--ro-bind", "/usr", "/usr",
+ 	    "--ro-bind", "/lib", "/lib",
+ 	    "--ro-bind", "/lib64", "/lib64",
+ 	    "--proc", "/proc",
+ 	    "--dev", "/dev",
+-	    "--symlink", "usr/bin", "/bin",
+-	    "--symlink", "usr/sbin", "/sbin",
+ 	    "--chdir", "/",
+ 	    "--setenv", "GIO_USE_VFS", "local",
+ 	    "--unshare-all",
