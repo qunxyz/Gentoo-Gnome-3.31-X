@@ -1,10 +1,10 @@
-Unofficial Gentoo Gnome 3.30 overlay
+Unofficial Gentoo Gnome 3.31 overlay
 --------------------------------------------
 
 Versions
 --------
 
- - Gnome 3.30 (stable)
+ - Gnome 3.31 (stable)
 
 General information
 -------------------
@@ -17,13 +17,13 @@ Usage
 
 ## via local overlays
 
-Create a `/etc/portage/repos.conf/Gnome-3.30-X.conf` file containing
+Create a `/etc/portage/repos.conf/Gnome-3.31-X.conf` file containing
 
 ```
-[Gnome-3-30-X]
-location = /usr/local/portage/Gnome-3-30-X
+[Gnome-3-31-X]
+location = /usr/local/portage/Gnome-3-31-X
 sync-type = git
-sync-uri = https://github.com/qunxyz/Gentoo-Gnome-3.30-X.git
+sync-uri = https://github.com/qunxyz/Gentoo-Gnome-3.31-X.git
 priority=9999
 ```
 
@@ -33,8 +33,8 @@ Then run emerge --sync
 
 Add via layman:
 
-	layman -o https://raw.github.com/qunxyz/Gentoo-Gnome-3.30-X/master/repositories.xml -f -a Gnome-3-30-X
+	layman -o https://raw.github.com/qunxyz/Gentoo-Gnome-3.31-X/master/repositories.xml -f -a Gnome-3-31-X
 
-Then run layman -s Gnome-3-30-X
+Then run layman -s Gnome-3-31-X
 
 
