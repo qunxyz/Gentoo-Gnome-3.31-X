@@ -4,7 +4,7 @@
 EAPI=6
 PYTHON_COMPAT=( python2_7 )
 
-inherit gnome2 python-any-r1 virtualx
+inherit gnome2 python-any-r1 virtualx meson
 
 DESCRIPTION="Access, organize and share your photos on GNOME"
 HOMEPAGE="https://wiki.gnome.org/Apps/Photos"
@@ -58,9 +58,11 @@ pkg_setup() {
 }
 
 src_configure() {
-	# XXX: how to deal with rdtscp support, x86intrin
-	gnome2_src_configure \
-		$(use_enable test dogtail)
+	local emesonargs=(
+		-Ddogtail=$(usex test true false)
+		-Dinstalled_tests=$(usex test true false)
+	)
+	meson_src_configure
 }
 
 src_test() {
