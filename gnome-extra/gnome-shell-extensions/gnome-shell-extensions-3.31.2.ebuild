@@ -9,7 +9,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="examples"
+IUSE=""
 KEYWORDS="amd64 ~x86"
 
 COMMON_DEPEND="
@@ -53,14 +53,6 @@ src_configure() {
 
 src_install() {
 	meson_src_install
-
-	local example="example@gnome-shell-extensions.gcampax.github.com"
-	if use examples; then
-		mv "${ED}usr/share/gnome-shell/extensions/${example}" \
-			"${ED}usr/share/doc/${PF}/" || die
-	else
-		rm -r "${ED}usr/share/gnome-shell/extensions/${example}" || die
-	fi
 
 	readme.gentoo_create_doc
 }
