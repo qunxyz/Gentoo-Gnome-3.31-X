@@ -65,7 +65,7 @@ src_prepare() {
 }
 
 src_configure() {
-	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
+	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README.md"
 
 	gnome2_src_configure \
 		--disable-deprecations \
