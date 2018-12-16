@@ -5,6 +5,8 @@ EAPI=6
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python3_{4,5,6} pypy )
 VALA_USE_DEPEND="vapigen"
+VALA_MIN_API_VERSION="0.43"
+VALA_MAX_API_VERSION="0.44"
 
 inherit cmake-utils db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
 
@@ -73,11 +75,6 @@ DEPEND="${RDEPEND}
 # It looks like a nightmare to disable those for now.
 RESTRICT="test"
 
-PATCHES=(
-	#"${FILESDIR}"/${PV}-DESTDIR-honoring.patch
-	#"${FILESDIR}"/${PV}-libical3-compat.patch
-)
-
 pkg_setup() {
 	python-any-r1_pkg_setup
 }
@@ -85,11 +82,6 @@ pkg_setup() {
 src_prepare() {
 	use vala && vala_src_prepare
 	gnome2_src_prepare
-
-	# Make CMakeLists versioned vala enabled
-	sed -e "s;\(find_program(VALAC\) valac);\1 ${VALAC});" \
-	    -e "s;\(find_program(VAPIGEN\) vapigen);\1 ${VAPIGEN});" \
-		-i "${S}"/CMakeLists.txt || die
 }
 
 src_configure() {
