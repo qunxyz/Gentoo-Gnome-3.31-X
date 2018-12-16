@@ -4,7 +4,8 @@
 EAPI=6
 
 VALA_USE_DEPEND="vapigen"
-VALA_MIN_API_VERSION="0.39"
+VALA_MIN_API_VERSION="0.43"
+VALA_MAX_API_VERSION="0.44"
 
 inherit gnome2 bash-completion-r1 virtualx meson vala
 
