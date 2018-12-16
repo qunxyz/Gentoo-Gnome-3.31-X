@@ -79,6 +79,7 @@ DEPEND="${COMMON_DEPEND}
 "
 PATCHES=(
 	"${FILESDIR}"/disable-gst-inspect.patch
+	"${FILESDIR}"/vala_option_fixed.patch
 )
 
 pkg_setup() {
