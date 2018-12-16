@@ -3,9 +3,10 @@
 
 EAPI=6
 VALA_USE_DEPEND="vapigen"
-VALA_MIN_API_VERSION="0.24"
+VALA_MIN_API_VERSION="0.43"
+VALA_MAX_API_VERSION="0.44"
 
-inherit gnome2 vala meson
+inherit gnome2 vala meson 
 
 DESCRIPTION="GNOME contact management application"
 HOMEPAGE="https://wiki.gnome.org/Design/Apps/Contacts"
@@ -40,6 +41,7 @@ RDEPEND="
 	x11-libs/cairo:=
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.22.0:3
+	>=dev-libs/libhandy-0.0.4
 	x11-libs/pango
 	v4l? ( >=media-video/cheese-3.5.91:= )
 "
@@ -54,14 +56,14 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
+	default
 	vala_src_prepare
-	eapply_user
 }
 
 src_configure() {
 	local emesonargs=(
-		-Dwith-manpage=true
-		-Dwith-cheese=$(usex v4l yes no)
+		-Dmanpage=true
+		-Dcheese=$(usex v4l true false)
 	)
 	meson_src_configure
 }
