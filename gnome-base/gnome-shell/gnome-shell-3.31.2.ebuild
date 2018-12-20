@@ -39,7 +39,7 @@ COMMON_DEPEND="
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-libs/libXfixes-5.0
 	x11-libs/libXtst
-	>=x11-wm/mutter-3.26.0:0/0[introspection]
+	>=x11-wm/mutter-3.31.2:0/0[introspection]
 	>=x11-libs/startup-notification-0.11
 	dev-lang/sassc
 	>=dev-util/meson-0.43.0
