@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-inherit gnome2 virtualx
+inherit autotools gnome2 virtualx
 
 DESCRIPTION="GNOME 3 compositing window manager based on Clutter"
 HOMEPAGE="https://git.gnome.org/browse/mutter/"
@@ -78,30 +78,28 @@ RDEPEND="${COMMON_DEPEND}
 	!x11-misc/expocity
 "
 
-#PATCHES=(
-#	"${FILESDIR}"/3.26.2-threaded-swap.patch
-#)
-
 src_prepare() {
 	# Disable building of noinst_PROGRAM for tests
 	if ! use test; then
 		sed -e '/^noinst_PROGRAMS/d' \
-			-i cogl/tests/conform/Makefile.{am,in} || die
+			-i cogl/tests/conform/Makefile.am || die
 		sed -e '/noinst_PROGRAMS += testboxes/d' \
 			-i src/Makefile-tests.am || die
-		sed -e '/noinst_PROGRAMS/ s/testboxes$(EXEEXT)//' \
-			-i src/Makefile.in || die
 	fi
-
-	gnome2_src_prepare
 
 	# Leave the damn CFLAGS alone
 	sed -e 's/$CFLAGS -g/$CFLAGS /' \
-		-i clutter/configure || die
+		-i clutter/configure.ac || die
 	sed -e 's/$CFLAGS -g -O0/$CFLAGS /' \
-		-i cogl/configure || die
+		-i cogl/configure.ac || die
 	sed -e 's/$CFLAGS -g -O/$CFLAGS /' \
-		-i configure || die
+		-i configure.ac || die
+		
+		aclocal --install
+		intltoolize --force --copy --automake
+		autoreconf --force --install
+
+	gnome2_src_prepare
 }
 
 src_configure() {
