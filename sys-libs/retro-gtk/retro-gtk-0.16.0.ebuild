@@ -12,7 +12,7 @@ HOMEPAGE="https://gitlab.gnome.org/GNOME/retro-gtk"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="demos +introspection vala"
+IUSE="demos +introspection"
 
 KEYWORDS="~amd64 ~x86"
 USE="introspection"
