@@ -3,7 +3,6 @@
 
 EAPI=6
 VALA_USE_DEPEND="vapigen"
-VALA_MIN_API_VERSION="0.24"
 
 inherit gnome2 multilib-minimal vala meson
 
@@ -18,6 +17,7 @@ IUSE="introspection profile doc tests examples glade"
 
 RDEPEND="
 	>=dev-libs/glib-2.53.4:2[${MULTILIB_USEDEP}]
+	glade? ( dev-util/glade )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5:= )
 "
 DEPEND="${RDEPEND}
