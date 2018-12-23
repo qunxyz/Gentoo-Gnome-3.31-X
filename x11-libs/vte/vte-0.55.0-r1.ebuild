@@ -3,7 +3,6 @@
 
 EAPI="6"
 VALA_USE_DEPEND="vapigen"
-VALA_MIN_API_VERSION="0.32"
 
 inherit gnome2 vala
 
@@ -44,6 +43,10 @@ DEPEND="${RDEPEND}
 RDEPEND="${RDEPEND}
 	!x11-libs/vte:2.90[glade]
 "
+
+PATCHES=(
+	"${FILESDIR}/vala-0.43.patch"
+)
 
 src_prepare() {
 
