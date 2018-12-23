@@ -5,8 +5,6 @@ EAPI=6
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python3_{4,5,6} pypy )
 VALA_USE_DEPEND="vapigen"
-VALA_MIN_API_VERSION="0.43"
-VALA_MAX_API_VERSION="0.44"
 
 inherit cmake-utils db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
 
