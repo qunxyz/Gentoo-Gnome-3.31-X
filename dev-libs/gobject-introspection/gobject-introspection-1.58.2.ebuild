@@ -63,7 +63,7 @@ src_configure() {
 
 src_install() {
 	gnome2_src_install
-
+	die "testing"
 	# Prevent collision with gobject-introspection-common
 	rm -v "${ED}"usr/share/aclocal/introspection.m4 \
 		"${ED}"usr/share/gobject-introspection-1.0/Makefile.introspection || die
