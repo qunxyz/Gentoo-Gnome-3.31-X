@@ -25,6 +25,8 @@ location = /usr/local/portage/Gnome-3-31-X
 sync-type = git
 sync-uri = https://github.com/qunxyz/Gentoo-Gnome-3.31-X.git
 priority=9999
+[DEFAULT]
+eclass-overrides = Gnome-3-31-X
 ```
 
 Then run emerge --sync
