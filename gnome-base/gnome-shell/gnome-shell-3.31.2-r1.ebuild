@@ -12,7 +12,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
-IUSE="+bluetooth +browser-extension +ibus +networkmanager nsplugin -openrc-force"
+IUSE="+bluetooth +browser-extension +networkmanager nsplugin -openrc-force"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 KEYWORDS="amd64 ~ia64 ~ppc ~ppc64 ~x86"
@@ -98,7 +98,7 @@ RDEPEND="${COMMON_DEPEND}
 	networkmanager? (
 		net-misc/mobile-broadband-provider-info
 		sys-libs/timezone-data )
-	ibus? ( >=app-i18n/ibus-1.4.99[dconf(+),gtk,introspection] )
+  >=app-i18n/ibus-1.4.99[dconf(+),gtk,introspection] 
 "
 # avoid circular dependency, see bug #546134
 PDEPEND="
@@ -113,6 +113,10 @@ DEPEND="${COMMON_DEPEND}
 	gnome-base/gnome-common
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}"/meta_background.patch
+)
 
 src_configure() {
 	local emesonargs=(
