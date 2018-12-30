@@ -49,6 +49,7 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 	x11-base/xorg-proto
+	media-libs/gexiv2
 "
 RDEPEND="${COMMON_DEPEND}
 	packagekit? ( app-admin/packagekit-base )
