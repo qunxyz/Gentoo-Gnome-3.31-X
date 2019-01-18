@@ -1,8 +1,8 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-PYTHON_COMPAT=( python{2_7,3_5,3_6,3_7} )
+PYTHON_COMPAT=( python{3_5,3_6,3_7} )
 GNOME2_EAUTORECONF=yes
 
 inherit autotools bash-completion-r1 epunt-cxx flag-o-matic gnome2 libtool linux-info \
@@ -125,7 +125,7 @@ src_prepare() {
 	eapply "${FILESDIR}"/${PN}-2.58.2-external-gdbus-codegen.patch
 
 	# https://gitlab.gnome.org/GNOME/glib/issues/1626
-	eapply "${FILESDIR}"/${P}-gvariant-test-fix.patch
+	eapply "${FILESDIR}"/${PN}-2.58.2-gvariant-test-fix.patch
 
 	# Tarball doesn't come with gtk-doc.make and we can't unconditionally depend on dev-util/gtk-doc due
 	# to circular deps during bootstramp. If actually not building gtk-doc, an almost empty file will do
