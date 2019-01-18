@@ -123,7 +123,7 @@ src_prepare() {
 	# ssh-agent handling must be done at xinitrc.d, bug #220603
 	eapply "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
 
-	eapply "${FILESDIR}/display-factory.patch"
+	#eapply "${FILESDIR}/display-factory.patch"
 
 	# Gentoo does not have a fingerprint-auth pam stack
 	#eapply "${FILESDIR}/${PN}-3.8.4-fingerprint-auth.patch"
