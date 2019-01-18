@@ -10,7 +10,7 @@ HOMEPAGE="https://git.gnome.org/browse/gnome-control-center/"
 
 LICENSE="GPL-2+"
 SLOT="2"
-IUSE="+bluetooth +colord +cups debug +gnome-online-accounts +ibus input_devices_wacom kerberos networkmanager v4l wayland"
+IUSE="+bluetooth +colord +cups debug +gnome-online-accounts +ibus input_devices_wacom kerberos networkmanager v4l wayland doc"
 KEYWORDS="~alpha amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sh ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x86-solaris"
 
 
@@ -27,7 +27,7 @@ COMMON_DEPEND="
 	>=x11-libs/gtk+-3.22.0:3[X,wayland?]
 	>=gnome-base/gsettings-desktop-schemas-3.21.4
 	>=gnome-base/gnome-desktop-3.27.90:3=
-	>=gnome-base/gnome-settings-daemon-3.25.90[colord,policykit]
+	>=gnome-base/gnome-settings-daemon-3.31.2[colord,policykit]
 	>=x11-misc/colord-0.1.34:0=
 
 	>=dev-libs/libpwquality-1.2.2
@@ -121,25 +121,15 @@ DEPEND="${COMMON_DEPEND}
 "
 
 src_configure() {
-#		$(use_enable colord color) \
-#		$(use_enable cups) \
-#		$(use_enable gnome-online-accounts goa) \
 	local emesonargs=(
 		-Doption=disable-update-mimedb
 		-Doption=disable-static
-		-Ddocumentation=true
+		$(meson_use doc documentation)
+		$(meson_use debug tracing)
 		$(meson_use ibus)
 		$(meson_use v4l cheese)
 		$(meson_use wayland)
-                $(meson_use networkmanager)
-                $(meson_use bluetooth)
-		$(meson_use kerberos)
-                $(meson_use input_devices_wacom wacom)
 
 	)
 	meson_src_configure
-}
-
-src_install() {
-	meson_src_install
 }
