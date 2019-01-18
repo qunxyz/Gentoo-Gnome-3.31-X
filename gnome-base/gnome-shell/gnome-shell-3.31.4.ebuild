@@ -39,7 +39,7 @@ COMMON_DEPEND="
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-libs/libXfixes-5.0
 	x11-libs/libXtst
-	>=x11-wm/mutter-3.31.2:0/0[introspection]
+	>=x11-wm/mutter-3.31.4:0/0[introspection]
 	>=x11-libs/startup-notification-0.11
 	dev-lang/sassc
 	>=dev-util/meson-0.43.0
@@ -114,22 +114,17 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/meta_background.patch
-)
-
 src_configure() {
 	local emesonargs=(
-		-Denable-systemd=yes
-		-Dwith_bluetooth=$(usex bluetooth true false)
-		-Denable-networkmanager=$(usex networkmanager yes no)
-		-DBROWSER_PLUGIN_DIR="${EPREFIX}"/usr/$(get_libdir)/nsbrowser/plugins
+		-Dsystemd=true
+		-Dnetworkmanager=$(usex networkmanager true false)
 	)
 	meson_src_configure
 }
 
 pkg_postinst() {
 	gnome2_pkg_postinst
+	gnome2_schemas_update
 
 	if ! has_version 'media-libs/gst-plugins-good:1.0' || \
 	   ! has_version 'media-plugins/gst-plugins-vpx:1.0'; then
