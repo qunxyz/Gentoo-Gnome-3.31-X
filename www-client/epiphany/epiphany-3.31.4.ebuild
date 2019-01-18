@@ -26,6 +26,7 @@ COMMON_DEPEND="
 	dev-libs/icu:=
 	>=x11-libs/libnotify-0.5.1:=
 	>=app-crypt/libsecret-0.14
+	>=dev-libs/libhandy-0.0.6
 	>=net-libs/libsoup-2.48:2.4
 	>=dev-libs/libxml2-2.6.12:2
 	>=dev-libs/libxslt-1.1.7
@@ -52,7 +53,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-3.16.0-unittest-1.patch
 
 	# https://bugzilla.gnome.org/show_bug.cgi?id=751593
-	"${FILESDIR}"/${PN}-3.14.0-unittest-2.patch
+	#"${FILESDIR}"/${PN}-3.14.0-unittest-2.patch
 )
 
 MESON_BUILD_DIR="${WORKDIR}/${P}_mesonbuild"
