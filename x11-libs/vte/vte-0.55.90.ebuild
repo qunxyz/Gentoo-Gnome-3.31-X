@@ -44,10 +44,6 @@ RDEPEND="${RDEPEND}
 	!x11-libs/vte:2.90[glade]
 "
 
-PATCHES=(
-	"${FILESDIR}/vala-0.43.patch"
-)
-
 src_prepare() {
 
 	use vala && vala_src_prepare
