@@ -10,7 +10,7 @@ HOMEPAGE="https://git.gnome.org/browse/gnome-session"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x86-solaris"
-IUSE="doc systemd man"
+IUSE="doc systemd man debug"
 
 # x11-misc/xdg-user-dirs{,-gtk} are needed to create the various XDG_*_DIRs, and
 # create .config/user-dirs.dirs which is read by glib to get G_USER_DIRECTORY_*
@@ -69,6 +69,7 @@ DEPEND="${COMMON_DEPEND}
 
 src_configure() {
 	local emesonargs=(
+		$(usex debug --buildtype=debug --buildtype=plain)
 		$(meson_use systemd)
 		$(meson_use systemd systemd_journal)
 		$(meson_use !systemd consolekit)
