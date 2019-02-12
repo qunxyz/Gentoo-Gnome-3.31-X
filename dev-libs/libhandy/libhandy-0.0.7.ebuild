@@ -37,13 +37,13 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
-		-Dintrospection=$(usex introspection true false)
+		-Dintrospection=$(usex introspection enabled disabled)
 		-Dvapi=true
 		-Dprofiling=$(usex profile true false)
 		-Dgtk_doc=$(usex doc true false)
 		-Dtests=$(usex tests true false)
 		-Dexamples=$(usex examples true false)
-		-Dglade_catalog=$(usex glade true false)
+		-Dglade_catalog=$(usex glade enabled disabled)
 	)
 	meson_src_configure
 }
