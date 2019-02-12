@@ -1,0 +1,19 @@
+diff -uNr gnome-control-center-3.31.4-ori/panels/info/cc-info-overview-panel.c gnome-control-center-3.31.4/panels/info/cc-info-overview-panel.c
+--- gnome-control-center-3.31.4-ori/panels/info/cc-info-overview-panel.c	2019-02-01 18:46:16.936234730 +0800
++++ gnome-control-center-3.31.4/panels/info/cc-info-overview-panel.c	2019-02-10 22:51:30.012818221 +0800
+@@ -536,7 +536,6 @@
+   mount = priv->primary_mounts->data;
+   priv->primary_mounts = g_list_remove (priv->primary_mounts, mount);
+   file = g_file_new_for_path (g_unix_mount_get_mount_path (mount));
+-  g_unix_mount_free (mount);
+ 
+   g_file_query_filesystem_info_async (file,
+                                       G_FILE_ATTRIBUTE_FILESYSTEM_SIZE,
+@@ -579,7 +578,6 @@
+           g_str_has_prefix (mount_path, g_get_home_dir ()) ||
+           g_hash_table_lookup (hash, device_path) != NULL)
+         {
+-          g_unix_mount_free (mount);
+           continue;
+         }
+ 

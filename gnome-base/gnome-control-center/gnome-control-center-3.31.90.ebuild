@@ -97,7 +97,7 @@ RDEPEND="${COMMON_DEPEND}
 	!wayland? (
 		>=x11-drivers/xf86-input-libinput-0.19.0
 		input_devices_wacom? ( >=x11-drivers/xf86-input-wacom-0.33.0 ) )
-
+	media-libs/gsound
 	!<gnome-base/gdm-2.91.94
 	!<gnome-extra/gnome-color-manager-3.1.2
 	!gnome-extra/gnome-media[pulseaudio]
@@ -120,8 +120,13 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf-archive
 "
 
+PATCHES=(
+	"${FILESDIR}"/${PV}-g_unix_mount_free.patch
+)
+
 src_configure() {
 	local emesonargs=(
+		$(usex debug --buildtype=debug --buildtype=plain)
 		-Doption=disable-update-mimedb
 		-Doption=disable-static
 		$(meson_use doc documentation)
@@ -129,7 +134,6 @@ src_configure() {
 		$(meson_use ibus)
 		$(meson_use v4l cheese)
 		$(meson_use wayland)
-
 	)
 	meson_src_configure
 }
