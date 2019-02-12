@@ -1,4 +1,4 @@
-From dd43972782c34fe4d8925d52ae82d69add00493a Mon Sep 17 00:00:00 2001
+From 534eed4f8664c9f263d666ed78144c37dc05bf90 Mon Sep 17 00:00:00 2001
 From: Gilles Dartiguelongue <eva@gentoo.org>
 Date: Sun, 27 May 2018 19:27:51 +0200
 Subject: [PATCH] Fix unwanted exiv check in packagekit option handling
@@ -8,10 +8,10 @@ Subject: [PATCH] Fix unwanted exiv check in packagekit option handling
  1 file changed, 1 deletion(-)
 
 diff --git a/meson.build b/meson.build
-index dd0be0b..0721028 100644
+index 9e179fb..08a0f79 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -108,7 +108,6 @@ if get_option('enable-exiv')
+@@ -108,7 +108,6 @@ if get_option('exiv')
  endif
  
  if get_option('packagekit')
@@ -20,5 +20,5 @@ index dd0be0b..0721028 100644
  endif
  
 -- 
-2.17.0
+2.19.1
 

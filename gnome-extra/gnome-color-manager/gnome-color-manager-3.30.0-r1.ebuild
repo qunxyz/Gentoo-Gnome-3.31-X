@@ -1,15 +1,15 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-inherit gnome2 meson virtualx
+inherit gnome.org gnome2-utils meson virtualx xdg
 
 DESCRIPTION="Color profile manager for the GNOME desktop"
 HOMEPAGE="https://git.gnome.org/browse/gnome-color-manager"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="packagekit raw test"
 
 # Need gtk+-3.3.8 for https://bugzilla.gnome.org/show_bug.cgi?id=673331
@@ -41,15 +41,28 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	# https://bugzilla.gnome.org/show_bug.cgi?id=796428
-	"${FILESDIR}"/3.30-remove-unwanted-check.patch
+	"${FILESDIR}"/3.28-remove-unwvanted-check.patch
+
+	# https://gitlab.gnome.org/GNOME/gnome-color-manager/issues/4
+	"${FILESDIR}"/${PN}-3.24.0-exiv2-0.27.patch # bug 674086
 )
+
+src_prepare() {
+	xdg_src_prepare
+
+	# Fix hard-coded package name
+	# https://gitlab.gnome.org/GNOME/gnome-color-manager/issues/3
+	sed 's:argyllcms:media-gfx/argyllcms:' -i src/gcm-utils.h || die
+}
 
 src_configure() {
 	# Always enable tests since they are check_PROGRAMS anyway
-	meson_src_configure \
-		$(meson_use raw exiv) \
-		$(meson_use packagekit packagekit) \
+	local emesonargs=(
+		$(meson_use raw exiv)
+		$(meson_use packagekit)
 		$(meson_use test tests)
+	)
+	meson_src_configure
 }
 
 src_test() {
@@ -57,10 +70,16 @@ src_test() {
 }
 
 pkg_postinst() {
-	gnome2_pkg_postinst
+	xdg_pkg_postinst
+	gnome2_icon_cache_update
 
 	if ! has_version media-gfx/argyllcms ; then
 		elog "If you want to do display or scanner calibration, you will need to"
 		elog "install media-gfx/argyllcms"
 	fi
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
+	gnome2_icon_cache_update
 }
