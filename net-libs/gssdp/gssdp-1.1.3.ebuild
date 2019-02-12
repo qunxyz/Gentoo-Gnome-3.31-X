@@ -37,9 +37,9 @@ src_prepare() {
 src_configure() {
     multilib_configure() {
         local emesonargs=(
-		        $(meson_use gtk enable-sniffer)
-		        $(meson_use introspection enable-introspection)
-		        $(meson_use introspection enable-vapi)
+		        $(meson_use gtk sniffer)
+		        $(meson_use introspection)
+		        $(meson_use introspection vapi)
 	        )
 
         meson_src_configure
