@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes" # plugins are dlopened
 PYTHON_COMPAT=( python3_{4,5,6} )
 VALA_USE_DEPEND="vapigen"
 
-inherit eutils gnome2 multilib python-single-r1 vala virtualx
+inherit eutils gnome2 meson multilib python-single-r1 vala virtualx
 
 DESCRIPTION="A text editor for the GNOME desktop"
 HOMEPAGE="https://wiki.gnome.org/Apps/Gedit"
@@ -14,7 +14,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Gedit"
 LICENSE="GPL-2+ CC-BY-SA-3.0"
 SLOT="0"
 
-IUSE="+introspection +python spell vala"
+IUSE="+introspection +python spell vala doc debug"
 REQUIRED_USE="python? ( introspection ${PYTHON_REQUIRED_USE} )"
 
 KEYWORDS="~alpha amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
@@ -45,9 +45,11 @@ RDEPEND="${COMMON_DEPEND}
 "
 DEPEND="${COMMON_DEPEND}
 	${vala_depend}
-	app-text/docbook-xml-dtd:4.1.2
-	app-text/yelp-tools
-	>=dev-util/gtk-doc-am-1
+	doc? (
+		app-text/docbook-xml-dtd:4.1.2
+		app-text/yelp-tools
+		>=dev-util/gtk-doc-am-1
+	)
 	>=dev-util/intltool-0.50.1
 	>=sys-devel/gettext-0.18
 	virtual/pkgconfig
@@ -59,32 +61,16 @@ pkg_setup() {
 }
 
 src_prepare() {
-	vala_src_prepare
-	gnome2_src_prepare
+	default
 }
 
 src_configure() {
-	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README.md"
-
-	gnome2_src_configure \
-		--disable-deprecations \
-		--disable-updater \
-		--enable-gvfs-metadata \
-		$(use_enable introspection) \
-		$(use_enable spell) \
-		$(use_enable python) \
-		$(use_enable vala)
-}
-
-src_test() {
-	"${EROOT}${GLIB_COMPILE_SCHEMAS}" --allow-any-name "${S}/data" || die
-	GSETTINGS_SCHEMA_DIR="${S}/data" virtx emake check
-}
-
-src_install() {
-	local args=()
-	# manually set pyoverridesdir due to bug #524018 and AM_PATH_PYTHON limitations
-	use python && args+=( pyoverridesdir="$(python_get_sitedir)/gi/overrides" )
-
-	gnome2_src_install "${args[@]}"
+	local emesonargs=(
+		$(usex debug --buildtype=debug --buildtype=plain)
+		-Dplugins=true
+		$(meson_use introspection)
+		$(meson_use vala vapi)
+		$(meson_use doc documentation)
+	)
+	meson_src_configure
 }

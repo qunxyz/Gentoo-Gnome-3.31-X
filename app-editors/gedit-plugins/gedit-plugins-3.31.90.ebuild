@@ -58,10 +58,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/codecomment.patch
-)
-
 pkg_setup() {
 	use python && [[ ${MERGE_TYPE} != binary ]] && python-single-r1_pkg_setup
 }
@@ -76,26 +72,4 @@ src_configure() {
 		$(use_enable python) \
 		$(use_enable vala) \
 		$(use_enable zeitgeist)
-}
-
-src_install() {
-	gnome2_src_install
-
-	# FIXME: crazy !!!
-	if use python; then
-		find "${ED}"/usr/share/gedit -name "*.py*" -delete || die
-		find "${ED}"/usr/share/gedit -type d -empty -delete || die
-	fi
-
-	# FIXME: upstream made this automagic...
-	clean_plugin charmap
-	clean_plugin git
-	clean_plugin terminal
-}
-
-clean_plugin() {
-	if use !${1} ; then
-		rm -rf "${ED}"/usr/share/gedit/plugins/${1}*
-		rm -rf "${ED}"/usr/$(get_libdir)/gedit/plugins/${1}*
-	fi
 }
