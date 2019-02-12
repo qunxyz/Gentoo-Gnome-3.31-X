@@ -54,8 +54,8 @@ src_configure() {
  multilib_configure() {
     local emesonargs=(
 	        -Dcontext_manager=${backend}
-	         $(meson_use introspection enable-introspection)
-	         $(meson_use introspection enable-vapi)
+	         $(meson_use introspection)
+	         $(meson_use introspection vapi)
 	         )
 	    if multilib_is_native_abi; then
 		    ln -s "${S}"/doc/html doc/html || die
@@ -72,8 +72,3 @@ src_compile() {
 src_install() {
 	multilib_foreach_abi meson_src_install
 }
-
-#multilib_src_install_all() {
-#	einstalldocs
-#	python_fix_shebang "${ED}"/usr/bin/gupnp-binding-tool
-#}
