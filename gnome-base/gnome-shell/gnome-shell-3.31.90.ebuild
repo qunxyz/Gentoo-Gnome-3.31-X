@@ -12,7 +12,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
-IUSE="+bluetooth +browser-extension +networkmanager nsplugin -openrc-force"
+IUSE="debug +bluetooth +browser-extension +networkmanager nsplugin -openrc-force"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 KEYWORDS="amd64 ~ia64 ~ppc ~ppc64 ~x86"
@@ -116,8 +116,9 @@ DEPEND="${COMMON_DEPEND}
 
 src_configure() {
 	local emesonargs=(
+        $(usex debug --buildtype=debug --buildtype=plain)
 		-Dsystemd=true
-		-Dnetworkmanager=$(usex networkmanager true false)
+		$(meson_use networkmanager)
 	)
 	meson_src_configure
 }
