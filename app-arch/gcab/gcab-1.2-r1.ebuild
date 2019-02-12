@@ -13,7 +13,7 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="alpha amd64 arm ~arm64 ~hppa ~ia64 ppc ppc64 sparc x86"
 
-IUSE="+introspection vala docs test"
+IUSE="+introspection vala doc test"
 REQUIRED_USE="vala? ( introspection )"
 
 RDEPEND="
@@ -36,9 +36,9 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
-		$(meson_use introspection enable-introspection)
-		$(meson_use docs enable-docs)
-		$(meson_use test enable-tests)
+		$(meson_use introspection)
+		$(meson_use doc docs)
+		$(meson_use test tests)
 	)
 	meson_src_configure
 }
