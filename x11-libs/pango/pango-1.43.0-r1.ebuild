@@ -39,8 +39,8 @@ DEPEND="${RDEPEND}
 src_configure() {
     multilib_configure() {
         local emesonargs=(
-		$(meson_use doc enable-enable_docs)
-		$(meson_use introspection enable-gir)
+		$(meson_use doc enable_docs)
+		$(meson_use introspection gir)
 	)
 
     meson_src_configure
