@@ -50,11 +50,12 @@ PATCHES=(
 
 src_configure() {
 	local emesonargs=(
+	$(usex debug --buildtype=debug --buildtype=plain)
     -Dgnome_distributor=Gentoo
     -Ddesktop_docs=true
     
-    -Ddebug_tools=$(usex debug true false)
-    -Dudev=$(usex udev enabled disabled)
+    $(meson_use debug debug_tools)
+    $(meson_use udev enabled disabled)
 	)
 	meson_src_configure
 }
