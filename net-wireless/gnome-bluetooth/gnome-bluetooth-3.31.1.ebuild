@@ -36,7 +36,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto
 "
 PATCHES=(
-	"${FILESDIR}/${PV}-bluetooth-client.patch"
+	"${FILESDIR}/3.31-bluetooth-client.patch"
 )
 
 src_configure() {
