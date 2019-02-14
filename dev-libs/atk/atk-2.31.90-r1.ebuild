@@ -23,11 +23,15 @@ DEPEND="${RDEPEND}
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
 "
 
+PATCHES=(
+	"${FILESDIR}"/metaclass_conflict.patch
+)
+
 src_configure() {
     multilib_configure() {
         local emesonargs=(
-		-Ddocs=$(usex doc true false)
-		-Dintrospection=$(usex introspection true false)
+        	$(meson_use doc docs)
+        	$(meson_use introspection)
         )
         meson_src_configure
     }
