@@ -12,7 +12,7 @@ SRC_URI="https://gitlab.freedesktop.org/geoclue/${PN}/-/archive/${PV}/${P}.tar.b
 LICENSE="LGPL-2"
 SLOT="2.0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd"
-IUSE="+introspection modemmanager zeroconf"
+IUSE="+introspection modemmanager zeroconf debug"
 
 RDEPEND="
 	>=dev-libs/glib-2.44:2
@@ -36,15 +36,16 @@ DEPEND="${RDEPEND}
 
 src_configure() {
 	local emesonargs=(
+		$(usex debug --buildtype=debug --buildtype=plain)
 		-Denable-backend=true
 		-Ddbus-srv-user=geoclue
 		-Dsystemd-system-unit-dir="$(systemd_get_systemunitdir)"
 		
-		-Dintrospection=$(usex introspection true false)
-		-D3g-source=$(usex modemmanager true false)
-		-Dcdma-source=$(usex modemmanager true false)
-		-Dmodem-gps-source=$(usex modemmanager true false)
-		-Dnmea-source=$(usex zeroconf true false)
+		$(meson_use introspection)
+		$(meson_use modemmanager 3g-source)
+		$(meson_use modemmanager cdma-source)
+		$(meson_use modemmanager modem-gps-source)
+		$(meson_use zeroconf nmea-source)
 	)
 	meson_src_configure
 }
