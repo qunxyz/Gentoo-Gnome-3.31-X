@@ -23,10 +23,6 @@ DEPEND="${RDEPEND}
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
 "
 
-PATCHES=(
-	"${FILESDIR}"/metaclass_conflict.patch
-)
-
 src_configure() {
     multilib_configure() {
         local emesonargs=(
