@@ -14,7 +14,7 @@ LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0/2.0"
 IUSE="elibc_glibc networkmanager stemmer upower unistring test"
 
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
 # glibc-2.12 needed for SCHED_IDLE (see bug #385003)
 RDEPEND="
