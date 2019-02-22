@@ -22,6 +22,10 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
+PATCHES=(
+	"${FILESDIR}"/sandbox_chown.patch
+)
+
 src_configure() {
 	# Add explicit stdc, bug #628256
 	append-cflags "-std=c99"
