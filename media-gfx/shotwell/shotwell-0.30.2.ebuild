@@ -4,7 +4,7 @@
 EAPI=6
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 multilib toolchain-funcs vala versionator
+inherit gnome2 multilib toolchain-funcs vala versionator meson
 
 MY_PV=$(get_version_component_range 1-2)
 DESCRIPTION="Open source photo manager for GNOME"
@@ -13,7 +13,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Shotwell"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86"
-IUSE=""
+IUSE="udev +plugins face-detection debug"
 
 RDEPEND="
 	>=app-crypt/gcr-3[gtk]
@@ -53,10 +53,15 @@ DEPEND="${RDEPEND}
 QA_FLAGS_IGNORED="/usr/libexec/${PN}/${PN}-video-thumbnailer"
 
 src_prepare() {
-	vala_src_prepare
-	gnome2_src_prepare
+	default
 }
 
 src_configure() {
-	gnome2_src_configure --disable-static
+	local emesonargs=(
+		$(usex debug --buildtype=debug --buildtype=plain)
+		-Dunity-support=false
+		$(meson_use udev)
+		$(meson_use plugins extra-plugins)
+	)
+	meson_src_configure
 }
