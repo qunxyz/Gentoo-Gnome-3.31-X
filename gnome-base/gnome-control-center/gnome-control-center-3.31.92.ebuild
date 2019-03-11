@@ -120,10 +120,6 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf-archive
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-g_unix_mount_free.patch
-)
-
 src_configure() {
 	local emesonargs=(
 		$(usex debug --buildtype=debug --buildtype=plain)
