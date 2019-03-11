@@ -32,10 +32,6 @@ DEPEND="${RDEPEND}
 		sys-apps/dbus )
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-optional-introspection.patch
-)
-
 src_prepare() {
 	# Disable tests requiring network access, bug #346127
 	# 3rd test fails on upgrade, not once installed
