@@ -69,7 +69,7 @@ src_configure() {
 #		-Doption=enable-shared
 #		-Doption=disable-static
 #		-Doption=disable-update-mimedb
-		$(meson_use test unit_tests)
+		$(meson_use test enable-unit_tests)
 	)
 	set -- meson "${myconf[@]}" "${S}" "${MESON_BUILD_DIR}"
 	echo "$@"
